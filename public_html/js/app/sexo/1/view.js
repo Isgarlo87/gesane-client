@@ -33,7 +33,8 @@ moduloSexo.controller('SexoView1Controller',
                 $scope.op = "view";
                 $scope.profile = 1;
                 //----
-                $scope.onlyview = true;
+                
+                //$scope.onlyview = true;
                 //---
                 $scope.id = $routeParams.id;
                 //---

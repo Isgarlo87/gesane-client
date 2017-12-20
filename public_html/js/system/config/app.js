@@ -1,11 +1,16 @@
 /*
- * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * Copyright (c) 2017-2018 
  *
- * TROLLEYES helps you to learn how to develop easily AJAX web applications
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
+ * 
+ * GESANE: Free Open Source Health Management System
  *
- * Sources at https://github.com/rafaelaznar/trolleyes
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
  *
- * TROLLEYES is distributed under the MIT License (MIT)
+ * GESANE is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +46,7 @@ var trolleyes = angular.module('myApp', [
     'linea_pedidoControllers',
     'sexoControllers',
     'circunstanciasaltaControllers',
+    'pacienteControllers',
     'episodioControllers',
     'tipopagoControllers',
     'tiposervicioControllers',
@@ -48,6 +54,15 @@ var trolleyes = angular.module('myApp', [
     'modalidadepisodioControllers',
     'tipodependeciaControllers',
     'tipoepisodioControllers',
+    'facturaControllers',
+    'servicioControllers',
+    'grupoControllers',
+    'cursoControllers',
+    'pacienteControllers',
+    'centroControllers',
+    'centrosanitarioControllers',
+    'categoriaprofesionalControllers',
+    'medicoControllers',
     'ui.bootstrap',
     'ngSanitize',
     'chart.js'
@@ -65,16 +80,29 @@ var moduloPedido = angular.module('pedidoControllers', []);
 var moduloDestinoalta = angular.module('destinoaltaControllers', []);
 var moduloProducto = angular.module('productoControllers', []);
 var moduloLinea_pedido = angular.module('linea_pedidoControllers', []);
-var moduloSexo = angular.module('sexoControllers', []);
-
 var moduloTipoepisodio = angular.module('tipoepisodioControllers', []);
-
+var moduloSexo = angular.module('sexoControllers', []);
 var moduloCircunstanciasalta = angular.module('circunstanciasaltaControllers', []);
 var moduloEpisodio = angular.module('episodioControllers', []);
 var moduloTipopago = angular.module('tipopagoControllers', []);
 var moduloEspecialidad = angular.module('especialidadControllers', []);
+var moduloPaciente = angular.module('pacienteControllers', []);
+
+var moduloFactura = angular.module('facturaControllers', []);
+
 var moduloTiposervicio = angular.module('tiposervicioControllers', []);
+var moduloModalidadepisodio = angular.module('modalidadepisodioControllers', []);
+var moduloServicio = angular.module('servicioControllers', []);
 //------------
 var moduloTipodependencia = angular.module('tipodependeciaControllers', []);
-var moduloModalidadepisodio = angular.module('modalidadepisodioControllers', []);
+var moduloGrupo= angular.module('grupoControllers', []);
+var moduloCurso= angular.module('cursoControllers', []);
+var moduloPaciente= angular.module('pacienteControllers', []);
+var moduloCentro= angular.module('centroControllers', []);
+var moduloCentrosanitario= angular.module('centrosanitarioControllers', []);
+var moduloCategoriaprofesional= angular.module('categoriaprofesionalControllers', []);
+
+
+var moduloMedico= angular.module('medicoControllers', []);
+
 

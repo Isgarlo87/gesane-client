@@ -33,7 +33,7 @@ moduloTipousuario.controller('TipousuarioPList1Controller',
                 $scope.op = "plist";
                 $scope.profile = 1;
                 //----
-                $scope.onlyview = true;
+                //$scope.onlyview = true;
                 //---
                 $scope.url = $scope.ob + '/' + $scope.profile + '/' + $scope.op;
                 //----
