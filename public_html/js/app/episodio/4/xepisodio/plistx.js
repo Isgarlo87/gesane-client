@@ -30,49 +30,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 'use strict';
-
-moduloPaciente.controller('PacienteSelection3Controller',
-        ['$scope', '$uibModalInstance', 'serverCallService', '$location', 'toolService',
-            function ($scope, $modalInstance, serverCallService, $location, toolService) {
-                $scope.ob = 'paciente';
-                $scope.op = "selection";
-                //---
-                $scope.numpage = 1;
-                $scope.rpp = 10;
-                $scope.neighbourhood = 1;
-                $scope.onlyview = true;
-                
+moduloEpisodio.controller('EpisodioxepisodioPList4Controller',
+        ['$scope', '$routeParams', '$location', 'serverCallService', 'toolService', 'constantService',
+            function ($scope, $routeParams, $location, serverCallService, toolService, constantService) {
+                $scope.ob = "episodio";
+                $scope.op = "plistx";
+                $scope.profile = 4;
                 //---
                 $scope.status = null;
-                $scope.debugging = true;
+                $scope.debugging = constantService.debugging();
+                //----
+                $scope.xob = "episodio";
+                $scope.xid = $routeParams.id;
+                //----
+                $scope.url = $scope.ob + '/' + $scope.profile + '/' + $scope.op + $scope.xob + '/' + $routeParams.id;
+                //----
+                $scope.numpage = toolService.checkDefault(1, $routeParams.page);
+                $scope.rpp = toolService.checkDefault(10, $routeParams.rpp);
+                $scope.neighbourhood = constantService.getGlobalNeighbourhood();
                 //---
-                $scope.orderParams = null;
-                $scope.filterParams = null;
-
-                $scope.visibles = {};
-                $scope.visibles.id = true;
-                $scope.visibles.descripcion = true;
-
-                $scope.filterString = [{'name': 'descripcion', 'longname': 'Descripción'}];
-                $scope.filterNumber = [{'name': 'id', 'longname': 'Identificador'}];
-
-                $scope.closeForm = function (id) {
-                    $modalInstance.close(id);
-                };
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                }
-                function getData() {
-                    serverCallService.getCount($scope.ob, $scope.filterParams).then(function (response) {
+                $scope.orderParams = toolService.checkEmptyString($routeParams.order);
+                $scope.filterParams = toolService.checkEmptyString($routeParams.filter);
+                //---
+                function getDataFromServer() {
+                    $scope.linkedbean = null;
+                    $scope.linkedbean2 = null;
+                    serverCallService.getCountX($scope.ob, $scope.xob, $scope.xid, $scope.filterParams).then(function (response) {
+                        if ($scope.xob && $scope.xid) {
+                            serverCallService.getOne($scope.xob, $scope.xid).then(function (response) {
+                                if (response.status == 200) {
+                                    if (response.data.status == 200) {
+                                        $scope.linkedbean = response.data.json;
+                                        $scope.linkedbean2 = response.data.json.data.obj_paciente;
+                                        $scope.linkedbean3 = response.data.json.data.obj_usuario;
+                                    }
+                                }
+                            }).catch(function (data) {
+                            });
+                        }
                         if (response.status == 200) {
                             $scope.registers = response.data.json;
                             $scope.pages = toolService.calculatePages($scope.rpp, $scope.registers);
                             if ($scope.numpage > $scope.pages) {
                                 $scope.numpage = $scope.pages;
                             }
-                            return serverCallService.getPage($scope.ob, $scope.rpp, $scope.numpage, $scope.filterParams, $scope.orderParams);
+                            return serverCallService.getPageX($scope.ob, $scope.xob, $scope.xid, $scope.rpp, $scope.numpage, $scope.filterParams, $routeParams.order);
                         } else {
                             $scope.status = "Error en la recepción de datos del servidor";
                         }
@@ -87,43 +90,22 @@ moduloPaciente.controller('PacienteSelection3Controller',
                     }).catch(function (data) {
                         $scope.status = "Error en la recepción de datos del servidor";
                     });
-
                 }
-                $scope.$on('filterSelectionEvent', function (event, data) {
-                    $scope.filterParams = data;
-                    getData();
-                });
-                $scope.$on('orderSelectionEvent', function (event, data) {
-                    $scope.orderParams = data;
-                    getData();
-                });
-                $scope.$on('pageSelectionEvent', function (event, data) {
-                    $scope.numpage = data;
-                    getData();
-                });
-                $scope.$on('rppSelectionEvent', function (event, data) {
-                    $scope.rpp = data;
-                    getData();
-                });
-                $scope.$on('resetOrderEvent', function (event) {
-                    $scope.orderParams = null;
-                    getData();
-                });
-                $scope.$on('resetFilterEvent', function (event) {
-                    $scope.filterParams = null;
-                    getData();
-                });
-                $scope.chooseOne = function (id) {
-                    $scope.closeForm(id);
-                    return false;
-                }
-
                 $scope.doorder = function (orderField, ascDesc) {
-                    $scope.orderParams = orderField + ',' + ascDesc;
-                    getData();
+                    $location.url($scope.url + '/' + $scope.numpage + '/' + $scope.rpp).search('filter', $scope.filterParams).search('order', orderField + ',' + ascDesc);
                     return false;
                 };
-
-                getData();
+                $scope.back = function () {
+                    window.history.back();
+                };
+                $scope.close = function () {
+                    $location.path('/home');
+                };
+                $scope.setShowRemove = function (show) {
+                    $scope.showRemove = show;
+                };
+                getDataFromServer();
             }
         ]);
+
+

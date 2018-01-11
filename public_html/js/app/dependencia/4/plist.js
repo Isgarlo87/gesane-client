@@ -1,16 +1,11 @@
 /*
- * Copyright (c) 2017-2018
+ * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  *
- * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
+ * TROLLEYES helps you to learn how to develop easily AJAX web applications
  *
- * GESANE: Free Open Source Health Management System
+ * Sources at https://github.com/rafaelaznar/trolleyes
  *
- * Sources at:
- *                            https://github.com/rafaelaznar/gesane-server
- *                            https://github.com/rafaelaznar/gesane-client
- *                            https://github.com/rafaelaznar/gesane-database
- *
- * GESANE is distributed under the MIT License (MIT)
+ * TROLLEYES is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,13 +26,15 @@
  * THE SOFTWARE.
  */
 'use strict';
-moduloPaciente.controller('PacientePList3Controller',
-        ['$scope', '$routeParams', '$http', '$location', 'serverCallService', 'toolService', 'constantService',
-            function ($scope, $http, $routeParams, $location, serverCallService, toolService, constantService) {
-                $scope.ob = "paciente";
+moduloDependencia.controller('DependenciaPList4Controller',
+        ['$scope', '$routeParams', '$location', 'serverCallService', 'toolService', 'constantService',
+            function ($scope, $routeParams, $location, serverCallService, toolService, constantService) {
+                $scope.ob = "dependencia";
                 $scope.op = "plist";
-                $scope.profile = 3;
-                /**/
+                $scope.profile = 4;
+
+                //----
+                
                 //---
                 $scope.url = $scope.ob + '/' + $scope.profile + '/' + $scope.op;
                 //----
@@ -51,16 +48,7 @@ moduloPaciente.controller('PacientePList3Controller',
                 $scope.status = null;
                 $scope.debugging = constantService.debugging();
                 //---
-                $scope.idseve = false;
-                $scope.iduser = 0;
-                $scope.veredit = true;
-
                 function getDataFromServer() {
-                    serverCallService.getSession("usuario").then(function (response) {
-                        if (response.status == 200) {
-                            $scope.iduser = response.data.json.data.id;
-                        }
-                    });
                     serverCallService.getCount($scope.ob, $scope.filterParams).then(function (response) {
                         if (response.status == 200) {
                             $scope.registers = response.data.json;
@@ -96,15 +84,6 @@ moduloPaciente.controller('PacientePList3Controller',
                 };
                 $scope.setShowRemove = function (show) {
                     $scope.showRemove = show;
-                };
-                $scope.showEdit = function (oBean) {
-                    $scope.iduserobean = oBean.obj_usuario.data.id;
-                    if ($scope.iduserobean == $scope.iduser) {
-                        $scope.idseve = true;
-                    }
-                    else{
-                        $scope.idseve = false;
-                    }
                 };
                 getDataFromServer();
             }
