@@ -194,9 +194,12 @@
                                         <div class="row">
                                             <div class="col-md-12 text-center">
                                                 <p><br>
-                                                    <a class="btn btn-primary" ng-if="xob" href="{{ob}}/{{profile}}/x{{xob}}/newx/{{xid}}">Crear</a>                                                   
+                                                    <a class="btn btn-primary" ng-if="xob" href="{{ob}}/{{profile}}/x{{xob}}/newx/{{xid}}">Crear</a>
+                                                    <label>Generar pacientes</label><input type="text" name="num" placeholder=" número"><br> 
+                                                    <a class="btn btn-primary" ng-if="xob" href="{{ob}}/{{profile}}/x{{xob}}/newx/{{xid}}">Generar pacientes</a>
                                                     <a class="btn btn-primary" ng-if="!xob" href="{{ob}}/{{profile}}/new">Crear</a>
-                                                </p>
+                                                    <a class="btn btn-primary" ng-if="!xob" href="{{ob}}/{{profile}}/x{{xob}}/newx/{{xid}}">Generar pacientes</a>
+                                                </p> 
                                             </div>
                                         </div>
                                     </div>
@@ -298,9 +301,3 @@
     </div>
 </div>
 </div>
-
-
-
-
-
-
